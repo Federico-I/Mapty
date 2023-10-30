@@ -323,3 +323,6 @@ class App {
 }
 
 const app = new App();
+
+
+// Not all features are functioning since this code it's a sample of the projects studied. The goal is to make a reference of the topics seen during the cousre.
