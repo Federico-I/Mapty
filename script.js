@@ -62,9 +62,6 @@ class Cycling extends Workout {
   }
 }
 
-// const run1 = new Running([39, -12], 5.2, 24, 178);
-// const cycling1 = new Cycling([39, -12], 27, 95, 523);
-// console.log(run1, cycling1);
 
 ///////////////////////////////////////
 // APPLICATION ARCHITECTURE
@@ -108,7 +105,6 @@ class App {
   _loadMap(position) {
     const { latitude } = position.coords;
     const { longitude } = position.coords;
-    // console.log(`https://www.google.pt/maps/@${latitude},${longitude}`);
 
     const coords = [latitude, longitude];
 
@@ -168,9 +164,9 @@ class App {
 
       // Check if data is valid
       if (
-        // !Number.isFinite(distance) ||
-        // !Number.isFinite(duration) ||
-        // !Number.isFinite(cadence)
+
+        // Example: !Number.isFinite(distance) ||  // !Number.isFinite(duration) || // !Number.isFinite(cadence)
+
         !validInputs(distance, duration, cadence) ||
         !allPositive(distance, duration, cadence)
       )
@@ -208,6 +204,8 @@ class App {
     this._setLocalStorage();
   }
 
+  // Marker 
+  
   _renderWorkoutMarker(workout) {
     L.marker(workout.coords)
       .addTo(this.#map)
@@ -278,7 +276,7 @@ class App {
   }
 
   _moveToPopup(e) {
-    // BUGFIX: When we click on a workout before the map has loaded, we get an error. But there is an easy fix:
+    
     if (!this.#map) return;
 
     const workoutEl = e.target.closest('.workout');
@@ -296,8 +294,7 @@ class App {
       },
     });
 
-    // using the public interface
-    // workout.click();
+   
   }
 
   _setLocalStorage() {
@@ -323,6 +320,3 @@ class App {
 }
 
 const app = new App();
-
-
-// Not all features are functioning since this code it's a sample of the projects studied. The goal is to make a reference of the topics seen during the cousre.
