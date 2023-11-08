@@ -7,4 +7,4 @@ The application works based on a Geolocation API, it requests the user's locatio
 
 The porpuse of the application is to allow the user to store running/cycling routine data as well as time and distance plus the geolocation on the map. After clicking on the map a form will be render on the left side of the browser with empty fields to complete with the workout information.
 
-There is an additional feature at the bottom right input field of the form, which will display a value depending on the type of training choosen and information inputed. 
+There is an additional feature at the bottom right input field of the form, which will display a value depending on the type of training chosen and information entered. 
