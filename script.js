@@ -56,17 +56,18 @@ class Cycling extends Workout {
   }
 
   calcSpeed() {
-    
+    // km/h
     this.speed = this.distance / (this.duration / 60);
     return this.speed;
     
-    // km/h
   }
 }
 
 
 ///////////////////////////////////////
 // APPLICATION ARCHITECTURE
+//////////////////////////////////////
+
 const form = document.querySelector('.form');
 const containerWorkouts = document.querySelector('.workouts');
 const inputType = document.querySelector('.form__input--type');
@@ -167,7 +168,7 @@ class App {
       // Check if data is valid
       if (
 
-        // Example: !Number.isFinite(distance) ||  // !Number.isFinite(duration) || // !Number.isFinite(cadence)
+      // Example: !Number.isFinite(distance) ||  // !Number.isFinite(duration) || // !Number.isFinite(cadence)
 
         !validInputs(distance, duration, cadence) ||
         !allPositive(distance, duration, cadence)
@@ -190,16 +191,16 @@ class App {
       workout = new Cycling([lat, lng], distance, duration, elevation);
     }
 
-    // Add new object to workout array
+    // Add new object to workout
     this.#workouts.push(workout);
 
-    // Render workout on map as marker
+    // Workout on map
     this._renderWorkoutMarker(workout);
 
-    // Render workout on list
+    // Workout on list
     this._renderWorkout(workout);
 
-    // Hide form + clear input fields
+    // Hide form + clear input
     this._hideForm();
 
     // Set local storage to all workouts
