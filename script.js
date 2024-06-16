@@ -18,24 +18,21 @@ navigator.geolocation.getCurrentPosition(
   
   function(currPos) {
 
-    const { longitude } = currPos.longitude;
-    const { latitude } = currPos.latitude;
+    const { longitude } = currPos.coords;
+    const { latitude } = currPos.coords;
     console.log(`https://www.google.ie/@${latitude},${longitude}`);
-
-
-    const coords = [latitude, longitude];
     
+    const coord = [latitude, longitude];
+
     const map = L.map("map").setView(coords, 13);
 
     
     L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(this.#map);
+    }).addTo(map);
 
-    
-
-
+    L.marker([latitude, longitude]).addtop(map).bindPopup("A pretty CSS3 popup.<br> Easily customizable").openPopu();
 
   
 }, function() {
