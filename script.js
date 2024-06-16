@@ -32,12 +32,21 @@ navigator.geolocation.getCurrentPosition(
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    L.marker([latitude, longitude]).addtop(map).bindPopup("A pretty CSS3 popup.<br> Easily customizable").openPopu();
-
   
-}, function() {
+
+    map.on("click", function (mapEvent) {
+      console.log(mapEvent);
+      const { lat, lng } = mapEvent.latlng;
+
+      L.marker([ lat, lng ]).addtop(map).bindPopup(L.popup({maxWidth: 250, minWidth: 100, autoClose: false, closeOnClick: false, className: "running-popup", 
+      })).setPopupContent("Workout").openPopu();
+    });
+  }, 
+  
+  function() {
   alert("Could not get your position");
-});
+  }
+);
 
 
 
