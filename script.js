@@ -1,6 +1,5 @@
 'use strict';
 
-
 // prettier-ignore
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -15,39 +14,54 @@ const inputElevation = document.querySelector('.form__input--elevation');
 
 let map, mapEvent;
 
-navigator.geolocation.getCurrentPosition(
-  
-  function(currPos) {
-
-    const { longitude } = currPos.coords;
-    const { latitude } = currPos.coords;
-    console.log(`https://www.google.ie/@${latitude},${longitude}`);
-    
-    const coord = [latitude, longitude];
-
-    map = L.map("map").setView(coords, 13);
-    
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(map);
-
-    map.on("click", function (mapEv) {
-
-      mapEvent = mapEv;
-
-      form.classList.remove("hidden");
-      inputDistance.focus();
-      
-
-
-    });
-  }, 
-  
-  function() {
-  alert("Could not get your position");
+class App{
+  constructor() {
+    this._getPosition();
   }
-);
+
+    _getPosition() {
+      if (navigator.geolocation)
+      navigator.geolocation.getCurrentPosition( this._laodMap, function() {
+        alert("Could not get your position");
+        }
+      );
+    };
+
+    _laodMap(currPos) {
+      
+        const { longitude } = currPos.coords;
+        const { latitude } = currPos.coords;
+        console.log(`https://www.google.ie/@${latitude},${longitude}`);
+        
+        const coord = [latitude, longitude];
+    
+        map = L.map("map").setView(coords, 13);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }).addTo(map);
+    
+        map.on("click", function (mapEv) {
+    
+          mapEvent = mapEv;
+    
+          form.classList.remove("hidden");
+          inputDistance.focus();
+          
+        });
+    }
+
+    _showForm() {}
+
+    _toggleEleveationField() {}
+
+    _newWorkout() {}
+
+};
+
+const app = new App();
+
 
 
 form.addEventListener("submit", function(e) {
