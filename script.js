@@ -80,8 +80,14 @@ class App{
 
   constructor() {
     this._getPosition();
+
+    // get local storage
+    this._getLocalStorage();
+
+    // attach event handlers
     form.addEventListener("submit", this._newWorkout.bind(this));
     inputType.addEventListener("change", this._toggleElevationField);
+    containerWorkouts.addEventListener("click", this._moveToPopup.bind(this));
   };
 
   _getPosition() {
@@ -95,7 +101,7 @@ class App{
   _loadMap(currPos) { 
     const { longitude } = currPos.coords;
     const { latitude } = currPos.coords;
-    console.log(`https://www.google.ie/@${latitude},${longitude}`);
+    // console.log(`https://www.google.ie/@${latitude},${longitude}`);
         
     const coords = [latitude, longitude];
     
@@ -107,6 +113,10 @@ class App{
       }).addTo(this.#map);
     
     this.#map.on("click", this._showForm.bind(this));
+    
+    this.#workouts.forEach( work => {
+      this._renderWorkoutMarker(work);
+    });
   };
 
   _showForm(mapEv) {
@@ -252,12 +262,30 @@ class App{
     this.#map.setView( workout.coords, this.#mapZoomLevel, {animate: true, pan:{duration: 1,}});
 
     /// using inertface
-    workout.click();
+    // workout.click();
   };
 
   /////// create local storage
   _setLocalStorage() {
     localStorage.setItem("workouts", JSON.stringify(this.#workouts));
+  };
+
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem("workouts"));
+
+    if(!data) return;
+
+    this.#workouts = data;
+
+    this.#workouts.forEach( work => {
+      this._renderWorkout(work);
+      this._renderWorkoutMarker(work);
+    });
+  };
+
+  reset() {
+    localStorage.removeItem("workouts");
+    location.reload();
   };
 
 };
